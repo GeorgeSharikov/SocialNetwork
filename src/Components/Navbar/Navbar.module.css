@@ -1,0 +1,51 @@
+.h1 {
+    margin: 0px;
+    font-family: Roboto light;
+    padding-bottom: 5px;
+}
+
+.nav {
+    grid-area: n;
+    background: #e2b886;
+    padding: 20px;
+}
+
+.item a {
+    color: white;
+    text-decoration: none;
+}
+
+.item a.activeLink {
+    color: gold;
+}
+
+.item_friends {
+    margin: 30px 0 5px 0;
+    display: inline-block;
+    width: 100%;
+}
+
+.friendItem img{
+    width:25px;
+    height: 25px;
+    border-radius: 50%;
+}
+.friendItem{
+    grid-template-columns: 3fr 3fr 3fr  ;
+    grid-template-areas: 'nf nf nf';
+    grid-auto-flow: column;
+}
+
+.navBarFriend{
+    grid-area: nf;
+    text-align: center;
+    font-size: 15px;
+    display: inline-block;
+    width: 33.3%;
+    color: white;
+}
+
+.findUsers{
+    margin-top: 30px;
+    font-size: 30px;
+}

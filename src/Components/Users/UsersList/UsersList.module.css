@@ -1,0 +1,19 @@
+.wrapper{
+    margin: 10px;
+}
+
+.wrapper img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.img{
+    display: inline-block;
+    grid-area: im;
+}
+
+.inf{
+    margin-left: 10px;
+    grid-area: in;
+}
