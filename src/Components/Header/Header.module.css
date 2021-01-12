@@ -9,3 +9,8 @@
     border-radius: 50%;
     padding: 2px;
 }
+
+.headerDesign{
+    display: flex;
+    justify-content: space-between;
+}
