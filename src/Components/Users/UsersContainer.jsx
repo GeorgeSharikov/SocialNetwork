@@ -4,81 +4,69 @@ import {
     follow,
     setCurrentPage,
     setState,
-    setUserTotalCount,
+    setUserTotalCount, toggleFollowing,
     toggleIsFetching,
     unfollow
 } from "../../redux/usersReducer";
-import * as axios from "axios";
 import Users from "./Users";
 import Preloader from "../common/preloader";
+import {apiUsers} from "../../api/api";
 
 class UsersContainerComponent extends React.Component {
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`,{
-            withCredentials: true
-        })
+        apiUsers.getUsers(this.props.pageSize, this.props.currentPage)
             .then(response => {
                 this.props.toggleIsFetching(false)
-                this.props.setState(response.data.items)
-                this.props.setUserTotalCount(response.data.totalCount)
+                this.props.setState(response.items)
+                this.props.setUserTotalCount(response.totalCount)
             })
     }
 
     onPageChanged = (pageNumber) => {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${pageNumber}`, {
-            withCredentials: true
-        })
+        apiUsers.getUsers(this.props.pageSize, pageNumber)
             .then(response => {
                 this.props.toggleIsFetching(false)
-                this.props.setState(response.data.items)
+                this.props.setState(response.items)
             })
         this.props.setCurrentPage(pageNumber)
     }
 
     follow = (id) => {
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {},{
-            withCredentials: true,
-            headers: {
-                'API-KEY': 'eb5c9bee-b1cd-4d71-b3f7-42c2cc5a9c0b'
-            }
-        })
+        this.props.toggleFollowing(true)
+        apiUsers.follow(id)
             .then(response => {
-                if(response.data.resultCode === 0){
+                if (response.resultCode === 0) {
                     this.props.follow(id)
                 }
+                this.props.toggleFollowing(false)
             })
     }
 
     unfollow = (id) => {
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`,{
-            withCredentials: true,
-            headers: {
-                'API-KEY': 'eb5c9bee-b1cd-4d71-b3f7-42c2cc5a9c0b'
-            }
-        })
+        this.props.toggleFollowing(true)
+        apiUsers.unfollow(id)
             .then(response => {
-                if(response.data.resultCode === 0){
+                if (response.resultCode === 0) {
                     this.props.unfollow(id)
                 }
+                this.props.toggleFollowing(false)
             })
     }
 
-
-    render()
-
-    {
+    render() {
         return <>
 
             {this.props.isLoader ? <Preloader/> : null}
-            <Users  currentPage={this.props.currentPage}
+            <Users currentPage={this.props.currentPage}
                    users={this.props.users}
                    totalUserCount={this.props.totalUserCount}
                    pageSize={this.props.pageSize}
                    unfollow={this.unfollow}
                    follow={this.follow}
-                   onPageChanged={this.onPageChanged}/>
+                   onPageChanged={this.onPageChanged}
+                   followProgress={this.props.followProgress}/>
         </>
     }
 }
@@ -89,9 +77,10 @@ const mapStateToProps = (state) => {
         totalUserCount: state.usersPage.totalUserCount,
         pageSize: state.usersPage.pageSize,
         currentPage: state.usersPage.currentPage,
-        isLoader: state.usersPage.isFetching
+        isLoader: state.usersPage.isFetching,
+        followProgress: state.usersPage.followProgress
     }
 }
 export const UsersContainer = connect(mapStateToProps,
-    {follow, unfollow, setState, setCurrentPage, setUserTotalCount, toggleIsFetching,})
+    {follow, unfollow, setState, setCurrentPage, setUserTotalCount, toggleIsFetching, toggleFollowing})
 (UsersContainerComponent)

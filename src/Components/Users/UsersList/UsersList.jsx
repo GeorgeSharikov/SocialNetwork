@@ -8,13 +8,13 @@ const UsersList = (props) => {
     return (
             <div>
                 <div className={classes.wrapper}>
-                        <span className={classes.img}>
+                        <span className={classes.img} di>
                             <NavLink to={`/profile/${props.item.id}`}>
                                 <img src={props.item.photos.small != null ? props.item.photos.small : userPhoto}/>
                             </NavLink>
-                            <div> {props.item.followed
-                                ? <button onClick={() => props.unfollow(props.item.id)}>UnFollow</button>
-                                : <button onClick={() => props.follow(props.item.id)}>Follow</button>
+                            <div > {props.item.followed
+                                ? <button disabled={props.followProgress} onClick={() => props.unfollow(props.item.id)}>UnFollow</button>
+                                : <button disabled={props.followProgress} onClick={() => props.follow(props.item.id)}>Follow</button>
                             }
                             </div>
                         </span>
