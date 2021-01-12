@@ -34,24 +34,24 @@ class UsersContainerComponent extends React.Component {
     }
 
     follow = (id) => {
-        this.props.toggleFollowing(true)
+        this.props.toggleFollowing(true ,id)
         apiUsers.follow(id)
             .then(response => {
                 if (response.resultCode === 0) {
                     this.props.follow(id)
                 }
-                this.props.toggleFollowing(false)
+                this.props.toggleFollowing(false, id)
             })
     }
 
     unfollow = (id) => {
-        this.props.toggleFollowing(true)
+        this.props.toggleFollowing(true, id)
         apiUsers.unfollow(id)
             .then(response => {
                 if (response.resultCode === 0) {
                     this.props.unfollow(id)
                 }
-                this.props.toggleFollowing(false)
+                this.props.toggleFollowing(false, id)
             })
     }
 

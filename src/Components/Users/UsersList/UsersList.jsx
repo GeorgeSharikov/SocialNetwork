@@ -13,8 +13,8 @@ const UsersList = (props) => {
                                 <img src={props.item.photos.small != null ? props.item.photos.small : userPhoto}/>
                             </NavLink>
                             <div > {props.item.followed
-                                ? <button disabled={props.followProgress} onClick={() => props.unfollow(props.item.id)}>UnFollow</button>
-                                : <button disabled={props.followProgress} onClick={() => props.follow(props.item.id)}>Follow</button>
+                                ? <button disabled={props.followProgress.some(id => id === props.item.id)} onClick={() => props.unfollow(props.item.id)}>UnFollow</button>
+                                : <button disabled={props.followProgress.some(id => id === props.item.id)} onClick={() => props.follow(props.item.id)}>Follow</button>
                             }
                             </div>
                         </span>
