@@ -1,9 +1,8 @@
 import React from 'react'
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {setProfile} from "../../redux/profileReducer";
+import {getProfile} from "../../redux/profileReducer";
 import {withRouter} from "react-router-dom";
-import {apiProfile} from "../../api/api";
 
 
 class ProfileContainer extends React.Component{
@@ -13,10 +12,7 @@ class ProfileContainer extends React.Component{
         if(!userId){
              userId = 2
         }
-        apiProfile.getProfile(userId)
-            .then(response => {
-                this.props.setProfile(response)
-            })
+        this.props.getProfile(userId)
     }
 
     render(){
@@ -38,4 +34,4 @@ let mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {setProfile})(UrlDataComponent)
+export default connect(mapStateToProps, {getProfile})(UrlDataComponent)
