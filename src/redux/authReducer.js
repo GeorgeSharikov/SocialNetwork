@@ -5,8 +5,8 @@ const SET_LOGIN_INFORMATION = 'SET_LOGIN_INFORMATION-POST'
 let initialState = {
         id: null,
         email: null,
-        login: null
-
+        login: null,
+        isAuth: false
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -14,7 +14,8 @@ export const authReducer = (state = initialState, action) => {
         case SET_LOGIN_INFORMATION: {
             return{
                 ...state,
-                ...action.data
+                ...action.data,
+                isAuth: true
             }
         }
         default: {
