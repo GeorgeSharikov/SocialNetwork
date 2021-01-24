@@ -20,12 +20,21 @@ export const apiUsers = {
     unfollow(id) {
         return instance.delete(`follow/${id}`)
             .then(response => response.data)
-    }
+    },
+
 }
 
 export const apiProfile = {
     getProfile(userId){
         return instance.get(`profile/${userId}`)
+            .then(response => response.data)
+    },
+    getStatus(userId){
+        return instance.get(`profile/status/${userId}`)
+            .then(response => response.data)
+    },
+    updateStatus(status){
+        return instance.put(`profile/status`, {status: status})
             .then(response => response.data)
     }
 }
@@ -36,3 +45,4 @@ export const apiHeader = {
             .then(response => response.data)
     }
 }
+
