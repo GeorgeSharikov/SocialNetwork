@@ -10,11 +10,10 @@ const ProfileStatus = (props) => {
     })
 
     useEffect(() => {
-            setState(prevState => {
-                if(prevState.status !== state.status) return {...prevState, status: props.status}
-                return prevState
-            })
-    }, [state.status])
+            setState({
+            ...state,
+            status: props.status})
+    }, [props.status])
 
     const activateEditMode = () => {
         setState({
@@ -24,6 +23,7 @@ const ProfileStatus = (props) => {
     }
 
     const deactivateEditMode = () => {
+        debugger
         setState({
             ...state,
             editMode: false
@@ -32,6 +32,7 @@ const ProfileStatus = (props) => {
     }
 
     const changeStatus = (e) => {
+        console.log(2)
         setState({
             ...state,
             status: e.currentTarget.value
@@ -42,7 +43,7 @@ const ProfileStatus = (props) => {
     return (
         <div>
             {!state.editMode ? <div>
-                    <span onDoubleClick={activateEditMode}>{!props.status ? 'noStatus' : props.status}</span>
+                    <span onDoubleClick={activateEditMode}>{props.status ? props.status : 'noStatus'}</span>
                 </div>
                 : <div>
                     <input onChange={changeStatus} autoFocus={true} onBlur={deactivateEditMode} value={state.status}/>
