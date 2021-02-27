@@ -2,21 +2,18 @@ import React from 'react'
 import classes from './Dialogs.module.css'
 import DialogsItem from "./DialogsItem/DialogsItem";
 import Message from "./Message/Message";
-import {Redirect} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {AddMessageForm} from "./AddMessageForm";
+import {useAuthRedirect} from "../CustomHooks/useAuthRedirect";
 
 const Dialogs = (props) => {
-    let Dialogs = props.DialogsData.map(d => <DialogsItem  key={d.id} name={d.name} id={d.id} img={d.img}/>)
-    let Messages = props.MessageData.map(m => <Message key={m.id} message={m.message}/>)
-    let newTextMessage = props.newTextMessage
+    useAuthRedirect()
 
-    let sendMessage = () => {
-        props.addMessage()
-    }
-    let changeMessage = (event) => {
-        let message = event.target.value
-        props.updateNewTextMessage(message)
-    }
+    const DialogsData = useSelector(state => state.dialogPage.DialogsData)
+    const MessageData = useSelector(state => state.dialogPage.MessageData)
 
+    let Dialogs = DialogsData.map(d => <DialogsItem  key={d.id} name={d.name} id={d.id} img={d.img}/>)
+    let Messages = MessageData.map(m => <Message key={m.id} message={m.message}/>)
 
 
     return (
@@ -25,13 +22,8 @@ const Dialogs = (props) => {
                 {Dialogs}
             </div>
             <div className={classes.messages}>
-                {Messages}
-                <div className={classes.textarea}>
-                    <textarea  placeholder ='Enter your message' onChange={changeMessage}  value={newTextMessage}/>
-                    <div>
-                        <button onClick={sendMessage}>Send</button>
-                    </div>
-                </div>
+                <div>{Messages}</div>
+                <AddMessageForm />
             </div>
         </div>
     )

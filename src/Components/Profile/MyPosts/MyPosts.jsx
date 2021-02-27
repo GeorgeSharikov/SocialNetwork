@@ -1,34 +1,19 @@
 import React from 'react'
 import classes from './MyPosts.module.css'
 import Post from "./Post/Post";
+import {AddPostForm} from "./Post/AddPostForm";
+import { useSelector} from "react-redux";
 
-const MyPosts = (props) => {
-    let PostData = props.PostData.map(p => < Post key={p.id} message={p.message} likesCounter={p.likesCount}/>)
-    let newTextPost = props.newTextPost
-
-    let addPost = () => {
-        props.addPost()
-    }
-    let postChanging = (event) => {
-        let text = event.target.value
-        props.updateNewTextPost(text)
-    }
+export const MyPosts = (props) => {
+    const postData = useSelector(state => state.profilePage.PostData)
+    let PostData = postData.map((p, index) => < Post key={index} message={p.message} likesCounter={p.likesCount}/>)
 
     return (
         <div className={classes.postsBlock}>
-           <h3>My post</h3>
-            <div>
-                <div>
-                    <textarea onChange={postChanging} value={newTextPost}/>
-                </div>
-                <div>
-                    <button onClick={addPost}>add post</button>
-                </div>
-            </div>
+           <AddPostForm />
             <div className={classes.posts}>
                 {PostData}
             </div>
         </div>)
 }
 
-export default MyPosts

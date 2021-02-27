@@ -8,11 +8,17 @@
 }
 
 .messages {
+    display:grid;
     border-left: 3px solid black;
     padding: 15px;
-
+    justify-content: right;
 }
-.textarea{
+.textarea {
     text-align: right;
     padding-top: 15px;
+}
+
+.form{
+    display: flex;
+    justify-content: right;
 }

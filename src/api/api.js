@@ -43,6 +43,14 @@ export const apiHeader = {
     getHeader(){
         return instance.get(`auth/me`)
             .then(response => response.data)
+    },
+    logIn(email, password, rememberMe){
+        return instance.post('/auth/login', {email: email, password: password, rememberMe: rememberMe})
+            .then(response => response.data)
+    },
+    logOut(){
+        return instance.delete('/auth/login')
+            .then(response => response.data)
     }
 }
 

@@ -1,14 +1,13 @@
 import React from 'react'
-import classes from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {MyPosts} from "./MyPosts/MyPosts";
 
 const Profile = (props) => {
     return (
-        <di>
+        <div>
             <ProfileInfo profile={props.profile} status={props.status} updateUserStatus={props.updateUserStatus}/>
-            <MyPostsContainer   />
-        </di>
+            <MyPosts   />
+        </div>
     )
 }
 
