@@ -1,5 +1,5 @@
 .container {
-    display: flex;
+    display: grid;
     justify-content: left;
     margin: 20px 0px 0px 50px;
 }
@@ -50,4 +50,13 @@ select {
 .rememberMe{
     display: flex;
     margin-bottom: 20px;
+}
+
+.serverError{
+    color: rgb(36, 41, 46);
+    border: black solid 0.5px;
+    border-radius: 10px;
+    padding: 10px;
+    background: rgb(36, 41, 46, 0.4);
+
 }

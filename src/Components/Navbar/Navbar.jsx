@@ -3,10 +3,12 @@ import classes from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
 import NavBarItem from "./NavBarItem/NavbarItem";
 import NavBarfriends from "./NavBarFirends/NavbarFriends";
+import {useSelector} from "react-redux";
+import {getNavBar} from "../common/selectrors";
 
 
-const Nav = (props) => {
-    let state = props.navBar
+export const Navbar = (props) => {
+    let state = useSelector(state => getNavBar(state))
     let navLink = state.navBarItem.map(item => <NavBarItem path={item.path} key={item.id} text={item.text}/>)
     let friend = state.navBarFriends.map(item => <NavBarfriends name={item.name} key={item.id} img={item.img}/>)
     return (
@@ -28,4 +30,3 @@ const Nav = (props) => {
     )
 }
 
-export default Nav

@@ -2,9 +2,13 @@ import React, {useState} from 'react'
 import classes from './Login.module.css'
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as yup from 'yup'
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {logIn} from "../redux/authReducer";
 import {TextError} from "../Components/common/TextError";
+import {Redirect} from "react-router-dom";
+import {useAuthRedirect} from "../Components/CustomHooks/useAuthRedirect";
+
+const captcha = false
 
 const initialValues = {
     email: '',
@@ -18,15 +22,20 @@ const validationSchema = yup.object({
 })
 
 const LoginForm = () => {
-    // const {login, setLogin} = useState({})
     const dispatch = useDispatch()
+    const isAuth = useSelector(state => state.auth.isAuth )
+    const withError = useSelector(state => state.auth.errorText)
 
     const onSubmit = values => {
         const {email, password, rememberMe} = values
-        dispatch(logIn(email, password, rememberMe))
+        dispatch(logIn(email, password, rememberMe, captcha))
+        if(isAuth) {
+            return <Redirect to={'/profile'}/>
+        } return null
 
     }
     return <div className={classes.container}>
+        {withError ? <div className={classes.serverError}><TextError>{withError}</TextError></div> : null}
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
             {
                 formik => <Form>
@@ -54,6 +63,10 @@ const LoginForm = () => {
 
 
 const Login = () => {
+    const isAuth = useAuthRedirect()
+    if(isAuth){
+        return  <Redirect to={'/profile'} />
+    }
     return <LoginForm/>
 }
 

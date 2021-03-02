@@ -20,14 +20,12 @@
 // }
 
 import React from 'react'
-import {Redirect} from "react-router-dom";
 import {useSelector} from "react-redux";
 
 export const useAuthRedirect = () => {
     const isAuth = useSelector(state => state.auth.isAuth)
-    if(isAuth){
-        return true
-    } else return <Redirect to={'/login'}/>
+    if(isAuth) return true
+    return false
 }
 
 

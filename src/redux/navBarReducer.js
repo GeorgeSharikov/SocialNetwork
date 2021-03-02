@@ -1,3 +1,4 @@
+const url = 'https://design-plaza.ru/images/products/5811/kvadrat-alloy-004/alloy-f-466064-c0004-w24-_1.jpg'
 let initialState = {
     navBarItem: [
         {id: '1', path: '/profile', text: 'Profile'},
@@ -10,17 +11,17 @@ let initialState = {
         {
             id: 1,
             name: 'Dimych',
-            img: 'https://design-plaza.ru/images/products/5811/kvadrat-alloy-004/alloy-f-466064-c0004-w24-_1.jpg'
+            img: url
         },
         {
             id: 2,
             name: 'Leha',
-            img: 'https://design-plaza.ru/images/products/5811/kvadrat-alloy-004/alloy-f-466064-c0004-w24-_1.jpg'
+            img: url
         },
         {
             id: 3,
             name: 'Armen',
-            img: 'https://design-plaza.ru/images/products/5811/kvadrat-alloy-004/alloy-f-466064-c0004-w24-_1.jpg'
+            img: url
         }
      ]
 }

@@ -120,5 +120,3 @@ export const unfollow = (id) => (dispatch) => {
             dispatch(toggleFollowing(false, id))
         })
 }
-
-

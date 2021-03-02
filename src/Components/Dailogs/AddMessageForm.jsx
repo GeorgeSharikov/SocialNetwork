@@ -19,7 +19,7 @@ export const AddMessageForm = (props) => {
     return (
         <div className={classes.form}>
             <Formik initialValues={{message: ''}}
-                    ValidationSchema={yup.object({message: yup.string().required('Required')})}
+                    validationSchema={yup.object({message: yup.string().required('Required')})}
                     onSubmit={onSubmit}>
                 {
                     formik => <Form>

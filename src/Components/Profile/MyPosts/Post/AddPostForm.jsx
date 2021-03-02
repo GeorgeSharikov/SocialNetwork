@@ -2,21 +2,25 @@ import React from 'react'
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as yup from 'yup'
 import {TextError} from "../../../common/TextError";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addPostCreator} from "../../../../redux/profileReducer";
 
 export const AddPostForm = (props) => {
     const dispatch = useDispatch()
 
+
     const addPost = (newTextPost) => dispatch(addPostCreator(newTextPost))
 
+    const validationSchema=yup.object({
+        post: yup.string().required('Required').max(10, 'Max 10 symbols')
+    })
     const onSubmit = (values, {resetForm}) => {
         addPost(values.post)
         resetForm()
     }
     return(
         <Formik initialValues={{post: ''}}
-                ValidationSchema={yup.object({post: yup.string().required('Required')})}
+                validationSchema={validationSchema}
                 onSubmit={onSubmit}>
             {
                 formik => <Form>

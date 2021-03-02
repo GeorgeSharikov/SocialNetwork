@@ -1,52 +1,40 @@
 import React, {useEffect, useState} from 'react'
+import {updateUserStatus} from "../../../redux/profileReducer";
+import {useDispatch} from "react-redux";
 
 
 
 const ProfileStatus = (props) => {
-
-    const [state, setState] = useState({
-        editMode: false,
-        status: props.status
-    })
+    const [editMode, setEditMode] = useState(false,)
+    const [status, setStatus] = useState(props.status)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-            setState({
-            ...state,
-            status: props.status})
+        setStatus(props.status)
     }, [props.status])
 
     const activateEditMode = () => {
-        setState({
-            ...state,
-            editMode: true
-        })
+        setEditMode(true)
     }
 
     const deactivateEditMode = () => {
         debugger
-        setState({
-            ...state,
-            editMode: false
-        })
-        props.updateUserStatus(state.status)
+        setEditMode( false)
+        dispatch(updateUserStatus(status))
     }
 
     const changeStatus = (e) => {
-        console.log(2)
-        setState({
-            ...state,
-            status: e.currentTarget.value
-        })
+        setStatus(e.currentTarget.value)
     }
 
 
     return (
         <div>
-            {!state.editMode ? <div>
+            {!editMode ? <div>
                     <span onDoubleClick={activateEditMode}>{props.status ? props.status : 'noStatus'}</span>
                 </div>
                 : <div>
-                    <input onChange={changeStatus} autoFocus={true} onBlur={deactivateEditMode} value={state.status}/>
+                    <input onChange={changeStatus} autoFocus={true} onBlur={deactivateEditMode} value={status}/>
                 </div>}
         </div>
     )

@@ -44,8 +44,9 @@ export const apiHeader = {
         return instance.get(`auth/me`)
             .then(response => response.data)
     },
-    logIn(email, password, rememberMe){
-        return instance.post('/auth/login', {email: email, password: password, rememberMe: rememberMe})
+    logIn(email, password, rememberMe,){
+        debugger
+        return instance.post('/auth/login', { email,password, rememberMe})
             .then(response => response.data)
     },
     logOut(){

@@ -3,7 +3,11 @@ import classes from './ProfileInfo.module.css'
 import Preloader from "../../common/preloader";
 import ProfileStatus from "./Status";
 
+
 const ProfileInfo = (props) => {
+
+
+
     if(!props.profile){
         return <Preloader />
     }
@@ -15,7 +19,7 @@ const ProfileInfo = (props) => {
                 <div  className={classes.descriptionBlock}>
                     <img src={props.profile.photos.small} className={classes.avatar}/>
                     <span>{props.profile.fullName}</span>
-                    <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
+                    <ProfileStatus status={props.status} />
                     <div>Ищу ли работу: {props.profile.lookingForAJob ? 'Da' : 'No'} </div>
                     <div>Как ищу: {props.profile.lookingForAJobDescription} </div>
                     <div>Contacts: poka net</div>
